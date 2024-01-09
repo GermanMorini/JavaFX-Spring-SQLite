@@ -1,5 +1,7 @@
 package com.javafx;
 
+import atlantafx.base.theme.Dracula;
+import atlantafx.base.theme.PrimerDark;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,10 +25,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
 		appContext = SpringApplication.run(Main.class);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/index.fxml"));
 		loader.setControllerFactory(appContext::getBean);
-		Scene scene = new Scene(loader.load(), 1000, 1000, false, SceneAntialiasing.BALANCED);
+		Scene scene = new Scene(loader.load(), 1300, 800, false, SceneAntialiasing.BALANCED);
 
 		stage.setScene(scene);
 		stage.show();

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// indica que esta clase está gestionada por spring (similar a @Service, @Controller, ...)
 @Component
 public class IndexController implements Initializable {
 
