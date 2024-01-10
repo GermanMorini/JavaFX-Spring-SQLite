@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/data.sqlite
-/src/main/resources/data.sqlite-journal
+/data.sqlite
+/data.sqlite-journal

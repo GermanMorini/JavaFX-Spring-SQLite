@@ -44,7 +44,7 @@ public class IndexController implements Initializable {
 
       private void manageException(Exception e) {
             log.error(e.getClass().getName() + ":\n" + e.getMessage());
-            dialog.showMessageDialog(
+            dialog.showDialog(
                     Alert.AlertType.ERROR,
                     e.getClass().getName(),
                     e.getMessage(),
@@ -52,23 +52,29 @@ public class IndexController implements Initializable {
             );
       }
 
+      private void refreshData() {
+            proyectosLV.getItems().clear();
+            proyectosLV.getItems().addAll(servicio.getAll());
+      }
+
       @FXML
       private void guardarAP() {
             try {
-                  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-                  Proyecto p = new Proyecto(
-                          Long.valueOf(idTF.getText()),
-                          nombreTF.getText(),
-                          sdf.parse(fecha_inicioDP.getValue().toString()),
-                          finalizadoCB.isSelected(),
-                          trabajadoresLV.getItems().stream().toList()
-                  );
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-                  servicio.saveProyecto(p);
-                  proyectosLV.getItems().clear();
-                  proyectosLV.getItems().addAll(servicio.getAll());
-                  log.info("Registro guardado con éxito");
+            Proyecto p = new Proyecto(
+                    Long.valueOf(idTF.getText()),
+                    nombreTF.getText(),
+                    sdf.parse(fecha_inicioDP.getValue().toString()),
+                    finalizadoCB.isSelected(),
+                    trabajadoresLV.getItems().stream().toList()
+            );
+
+            servicio.saveProyecto(p);
+            refreshData();
+            log.info("Registro guardado con éxito");
+
             } catch (Exception e) {manageException(e);}
       }
 
@@ -83,22 +89,44 @@ public class IndexController implements Initializable {
       }
 
       @FXML
-      private void proyectosLVMC() {
-            String seleccion = proyectosLV.getSelectionModel().getSelectedItem().toString();
+      private void eliminarAP() {
+            Proyecto p = proyectosLV.getSelectionModel().getSelectedItem();
 
             try {
-                  Proyecto p = servicio.getProyecto(seleccion).get();
-                  SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-                  SimpleDateFormat sdf2 = new SimpleDateFormat("d/M/yyyy");
-                  trabajadoresLV.getItems().clear();
 
-                  idTF.setText(p.getId().toString());
-                  nombreTF.setText(p.getNombre());
-                  fecha_inicioDP.setValue(LocalDate.parse(sdf1.format(p.getFecha_inicio())));
-                  fecha_inicioDP.getEditor().setText(sdf2.format(p.getFecha_inicio()));
-                  finalizadoCB.setSelected(p.getFinalizado());
-                  trabajadoresLV.getItems().addAll(p.getTrabajadores());
-                  log.info("Archivo cargado con éxito");
+            dialog.showConfirmDialog(
+                    "¿Deseas borrar '" + p.getNombre() + "'?",
+                    "Eliminar registro",
+                    res -> {
+                          if (res == ButtonType.OK) {
+                                servicio.deleteProyecto(p);
+                                refreshData();
+                                dialog.showInfoDialog("Registro eliminado", "");
+                          }
+                    }
+            );
+
+            } catch (Exception e) {manageException(e);}
+      }
+
+      @FXML
+      private void proyectosLVMC() {
+            try {
+
+            String seleccion = proyectosLV.getSelectionModel().getSelectedItem().toString();
+            Proyecto p = servicio.getProyecto(seleccion).get();
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("d/M/yyyy");
+            trabajadoresLV.getItems().clear();
+
+            idTF.setText(p.getId().toString());
+            nombreTF.setText(p.getNombre());
+            fecha_inicioDP.setValue(LocalDate.parse(sdf1.format(p.getFecha_inicio())));
+            fecha_inicioDP.getEditor().setText(sdf2.format(p.getFecha_inicio()));
+            finalizadoCB.setSelected(p.getFinalizado());
+            trabajadoresLV.getItems().addAll(p.getTrabajadores());
+            log.info("Archivo cargado con éxito");
+
             } catch (Exception e) {manageException(e);}
       }
 }

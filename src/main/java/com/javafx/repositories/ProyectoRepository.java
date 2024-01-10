@@ -17,4 +17,7 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, String> {
 
       @Override
       <S extends Proyecto> S save(S entity);
+
+      @Override
+      void deleteById(String s);
 }

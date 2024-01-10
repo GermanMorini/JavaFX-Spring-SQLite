@@ -21,7 +21,7 @@ public class Main extends Application {
 		launch(args);
 	}
 
-//	este método se usa para configurar la aplicación antes de mostrar la parte gráfica
+//	Este método se usa para configurar la aplicación antes de mostrar la parte gráfica
 	@Override
 	public void init() throws Exception {
 		Application.setUserAgentStylesheet(new NordDark().getUserAgentStylesheet());
@@ -38,7 +38,7 @@ public class Main extends Application {
 		rootNode = loader.load();
 	}
 
-//	se ejecuta para iniciar la parte gráfica y la lógica principal
+//	Se ejecuta para iniciar la parte gráfica y la lógica principal
 	@Override
 	public void start(Stage stage) throws Exception {
 		Scene scene = new Scene(rootNode, 1300, 800, false, SceneAntialiasing.BALANCED);
@@ -46,9 +46,7 @@ public class Main extends Application {
 		stage.show();
 	}
 
-//	se ejecuta al terminar la aplicación, ya sea por el usuario o debido a un error
+//	Se ejecuta al terminar la aplicación, ya sea por el usuario o debido a un error
 	@Override
-	public void stop() throws Exception {
-
-	}
+	public void stop() throws Exception {}
 }
