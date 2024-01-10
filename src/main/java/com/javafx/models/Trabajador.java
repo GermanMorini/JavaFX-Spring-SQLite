@@ -1,18 +1,21 @@
 package com.javafx.models;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity @Data
 @AllArgsConstructor
-@Getter @Setter
+@NoArgsConstructor
 public class Trabajador {
 
-      private Long id;
-      private String nombre;
-      private String apellido;
-      private Integer dni;
-      private Integer edad;
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
+      @Id private Long id;
+      @Column private String nombre;
+      @Column private String apellido;
+      @Column private Integer dni;
+      @Column private Integer edad;
 
       @Override
       public String toString() {

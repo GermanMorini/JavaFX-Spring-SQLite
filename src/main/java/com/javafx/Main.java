@@ -1,6 +1,6 @@
 package com.javafx;
 
-import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.NordDark;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +24,7 @@ public class Main extends Application {
 //	este método se usa para configurar la aplicación antes de mostrar la parte gráfica
 	@Override
 	public void init() throws Exception {
-		Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+		Application.setUserAgentStylesheet(new NordDark().getUserAgentStylesheet());
 
 //		Inicia la aplicación Spring Boot y obtiene el contexto de la aplicación,
 //		que se puede utilizar para obtener beans administrados por Spring.

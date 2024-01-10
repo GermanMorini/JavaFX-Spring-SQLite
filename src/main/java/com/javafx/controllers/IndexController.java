@@ -39,12 +39,11 @@ public class IndexController implements Initializable {
       @FXML private DatePicker fecha_inicioDP;
       @FXML private CheckBox finalizadoCB;
       @FXML private ListView<Trabajador> trabajadoresLV;
-
-      @FXML private ListView<String> proyectosLV;
+      @FXML private ListView<Proyecto> proyectosLV;
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
-
+            proyectosLV.getItems().addAll(servicio.getAll());
       }
 
       @FXML
@@ -53,18 +52,18 @@ public class IndexController implements Initializable {
                   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
                   Proyecto p = new Proyecto(
-                          idTF.getText(),
+                          Long.valueOf(idTF.getText()),
                           nombreTF.getText(),
                           sdf.parse(fecha_inicioDP.getValue().toString()),
                           finalizadoCB.isSelected(),
-                          trabajadoresLV.getItems()
+                          trabajadoresLV.getItems().stream().toList()
                   );
 
                   servicio.saveProyecto(p);
-                  proyectosLV.getItems().add(p.getNombre());
+                  proyectosLV.getItems().add(p);
                   log.info("Archivo guardado con éxito");
             } catch (Exception e) {
-                  log.error("Error al guardar el archivo:\n" + e.getMessage());
+                  log.error(e.getClass().getName() + ":\n" + e.getMessage());
             }
       }
 
@@ -81,19 +80,19 @@ public class IndexController implements Initializable {
       @FXML
       private void proyectosLVMC() throws IOException {
             try {
-                  String proyectoSeleccionado = proyectosLV.getSelectionModel().getSelectedItem();
-                  Proyecto p = servicio.getProyecto(proyectoSeleccionado);
+                  String proyectoSeleccionado = proyectosLV.getSelectionModel().getSelectedItem().toString();
+                  Proyecto p = servicio.getProyecto(proyectoSeleccionado).get();
                   SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
                   trabajadoresLV.getItems().clear();
 
-                  idTF.setText(p.getId());
+                  idTF.setText(p.getId().toString());
                   nombreTF.setText(p.getNombre());
                   fecha_inicioDP.getEditor().setText(sdf.format(p.getFecha_inicio()));
                   finalizadoCB.setSelected(p.getFinalizado());
                   trabajadoresLV.getItems().addAll(p.getTrabajadores());
                   log.info("Archivo cargado con éxito");
             } catch (Exception e) {
-                  log.error("Error al cargar el archivo:\n" + e.getMessage());
+                  log.error(e.getClass().getName() + ":\n" + e.getMessage());
             }
       }
 }

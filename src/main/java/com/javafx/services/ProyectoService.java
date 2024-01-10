@@ -1,22 +1,29 @@
 package com.javafx.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javafx.models.Proyecto;
+import com.javafx.repositories.ProyectoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProyectoService {
 
-      private final ObjectMapper om = new ObjectMapper();
+      @Autowired
+      private ProyectoRepository repo;
 
-      public Proyecto getProyecto(String pname) throws IOException {
-            return om.readValue(getClass().getResource("/" + pname + ".json"), Proyecto.class);
+      public List<Proyecto> getAll() {
+            return repo.findAll();
+      }
+
+      public Optional<Proyecto> getProyecto(String pname) {
+            return repo.findByNombre(pname);
       }
 
       public void saveProyecto(Proyecto p) throws IOException {
-            om.writeValue(new File("src/main/resources/" + p.getNombre() + ".json"), p);
+            repo.save(p);
       }
 }
