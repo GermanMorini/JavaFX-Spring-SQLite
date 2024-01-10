@@ -1,22 +1,20 @@
 package com.javafx.controllers;
 
+import com.javafx.beans.Dialog;
 import com.javafx.models.Proyecto;
 import com.javafx.models.Trabajador;
 import com.javafx.services.ProyectoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 // indica que esta clase está gestionada por spring (similar a @Service, @Controller, ...)
@@ -27,12 +25,10 @@ public class IndexController implements Initializable {
 //      @Autowired permite inyectar dependencias
 //      permite que spring instancie la clase cuando sea necesario
 //      similar a la anotación @FXML, que inyecta los controles de la escena
-      @Autowired
       @Qualifier("saludoLbl")
-      private String texto;
-
-      @Autowired
-      private ProyectoService servicio;
+      @Autowired private String texto;
+      @Autowired private ProyectoService servicio;
+      @Autowired private Dialog dialog;
 
       @FXML private TextField idTF;
       @FXML private TextField nombreTF;
@@ -44,6 +40,16 @@ public class IndexController implements Initializable {
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
             proyectosLV.getItems().addAll(servicio.getAll());
+      }
+
+      private void manageException(Exception e) {
+            log.error(e.getClass().getName() + ":\n" + e.getMessage());
+            dialog.showMessageDialog(
+                    Alert.AlertType.ERROR,
+                    e.getClass().getName(),
+                    e.getMessage(),
+                    "Error"
+            );
       }
 
       @FXML
@@ -60,11 +66,10 @@ public class IndexController implements Initializable {
                   );
 
                   servicio.saveProyecto(p);
-                  proyectosLV.getItems().add(p);
-                  log.info("Archivo guardado con éxito");
-            } catch (Exception e) {
-                  log.error(e.getClass().getName() + ":\n" + e.getMessage());
-            }
+                  proyectosLV.getItems().clear();
+                  proyectosLV.getItems().addAll(servicio.getAll());
+                  log.info("Registro guardado con éxito");
+            } catch (Exception e) {manageException(e);}
       }
 
       @FXML
@@ -78,21 +83,22 @@ public class IndexController implements Initializable {
       }
 
       @FXML
-      private void proyectosLVMC() throws IOException {
+      private void proyectosLVMC() {
+            String seleccion = proyectosLV.getSelectionModel().getSelectedItem().toString();
+
             try {
-                  String proyectoSeleccionado = proyectosLV.getSelectionModel().getSelectedItem().toString();
-                  Proyecto p = servicio.getProyecto(proyectoSeleccionado).get();
-                  SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+                  Proyecto p = servicio.getProyecto(seleccion).get();
+                  SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+                  SimpleDateFormat sdf2 = new SimpleDateFormat("d/M/yyyy");
                   trabajadoresLV.getItems().clear();
 
                   idTF.setText(p.getId().toString());
                   nombreTF.setText(p.getNombre());
-                  fecha_inicioDP.getEditor().setText(sdf.format(p.getFecha_inicio()));
+                  fecha_inicioDP.setValue(LocalDate.parse(sdf1.format(p.getFecha_inicio())));
+                  fecha_inicioDP.getEditor().setText(sdf2.format(p.getFecha_inicio()));
                   finalizadoCB.setSelected(p.getFinalizado());
                   trabajadoresLV.getItems().addAll(p.getTrabajadores());
                   log.info("Archivo cargado con éxito");
-            } catch (Exception e) {
-                  log.error(e.getClass().getName() + ":\n" + e.getMessage());
-            }
+            } catch (Exception e) {manageException(e);}
       }
 }

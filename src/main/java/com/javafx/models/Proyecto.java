@@ -13,9 +13,8 @@ import java.util.List;
 @Table(name = "proyectos")
 public class Proyecto {
 
-      @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id private Long id;
-      @Column private String nombre;
+      @Column(unique = true) private String nombre;
       @Column private Date fecha_inicio;
       @Column private Boolean finalizado;
       @OneToMany private List<Trabajador> trabajadores;
