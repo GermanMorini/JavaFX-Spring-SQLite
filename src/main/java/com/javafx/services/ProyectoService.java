@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,13 @@ public class ProyectoService {
 
       public void deleteProyecto(Proyecto p) {
             repo.deleteById(p.getId().toString());
+      }
+
+      public void deleteAllById(List<Proyecto> p) {
+            repo.deleteAllById(p.stream()
+                    .map(Proyecto::getId)
+                    .map(Objects::toString)
+                    .toList()
+            );
       }
 }

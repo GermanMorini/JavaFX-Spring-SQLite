@@ -4,9 +4,13 @@ import com.javafx.beans.Dialog;
 import com.javafx.models.Proyecto;
 import com.javafx.models.Trabajador;
 import com.javafx.services.ProyectoService;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +19,8 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 // indica que esta clase está gestionada por spring (similar a @Service, @Controller, ...)
@@ -36,10 +42,14 @@ public class IndexController implements Initializable {
       @FXML private CheckBox finalizadoCB;
       @FXML private ListView<Trabajador> trabajadoresLV;
       @FXML private ListView<Proyecto> proyectosLV;
+      @FXML private TableView<Proyecto> tabla; // ver la anotación que hay en el .fxml línea ~160
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
-            proyectosLV.getItems().addAll(servicio.getAll());
+            ObservableList<Proyecto> data = FXCollections.observableList(servicio.getAll());
+            proyectosLV.setItems(data);
+            tabla.setItems(data);
+            tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
       }
 
       private void manageException(Exception e) {
@@ -53,8 +63,22 @@ public class IndexController implements Initializable {
       }
 
       private void refreshData() {
+            ObservableList<Proyecto> data = FXCollections.observableList(servicio.getAll());
+
             proyectosLV.getItems().clear();
-            proyectosLV.getItems().addAll(servicio.getAll());
+            proyectosLV.setItems(data);
+            tabla.setItems(data);
+      }
+
+      private void deleteSelection() {
+            try {
+
+            log.info("Eliminando registros desde la tabla");
+            ObservableList<Proyecto> selection = tabla.getSelectionModel().getSelectedItems();
+            servicio.deleteAllById(selection);
+            refreshData();
+
+            } catch (Exception e) {manageException(e);}
       }
 
       @FXML
@@ -128,5 +152,14 @@ public class IndexController implements Initializable {
             log.info("Archivo cargado con éxito");
 
             } catch (Exception e) {manageException(e);}
+      }
+
+      @FXML
+      private void eliminarSeleccionAP() {
+            dialog.showConfirmDialog(
+                    "¿Eliminar las entradas seleccionadas?",
+                    "Eliminar",
+                    res -> {if (res == ButtonType.OK) deleteSelection();}
+            );
       }
 }

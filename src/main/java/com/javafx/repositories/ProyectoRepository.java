@@ -20,4 +20,7 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, String> {
 
       @Override
       void deleteById(String s);
+
+      @Override
+      void deleteAllById(Iterable<? extends String> s);
 }
