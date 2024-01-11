@@ -6,9 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity @Data
+@Table(name = "empleados")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Trabajador {
+public class Empleado {
 
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id private Long id;
