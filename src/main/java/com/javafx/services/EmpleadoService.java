@@ -4,11 +4,13 @@ import com.javafx.models.Empleado;
 import com.javafx.repositories.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class EmpleadoService {
 
       @Autowired private EmpleadoRepository repo;
@@ -26,7 +28,7 @@ public class EmpleadoService {
       }
 
       public void delete(Empleado em) {
-            repo.delete(em);
+            repo.deleteById(em.getId());
       }
 
       public void deleteAllInList(List<Empleado> em) {

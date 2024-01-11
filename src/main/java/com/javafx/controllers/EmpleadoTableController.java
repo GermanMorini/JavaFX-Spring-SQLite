@@ -1,10 +1,12 @@
 package com.javafx.controllers;
 
-import com.javafx.beans.Admin;
 import com.javafx.beans.Dialog;
 import com.javafx.interfaces.Refreshable;
 import com.javafx.models.Empleado;
+import com.javafx.models.Proyecto;
 import com.javafx.services.EmpleadoService;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PostRemove;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,17 +15,16 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@Component
-public class EmpleadosTableController implements Initializable, Refreshable {
+@Controller
+public class EmpleadoTableController implements Initializable, Refreshable {
 
       @Autowired private EmpleadoService service;
       @Autowired private Dialog dialog;
-      @Autowired private Admin admin;
 
       @FXML private TableView<Empleado> tablaEmpleados;
 
@@ -56,6 +57,6 @@ public class EmpleadosTableController implements Initializable, Refreshable {
 
             service.deleteAllInList(selection);
             refresh();
-            } catch (Exception e) {admin.manageException(e);}
+            } catch (Exception e) {dialog.exceptionDialog(e);}
       }
 }

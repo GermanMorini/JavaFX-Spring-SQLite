@@ -1,9 +1,10 @@
 package com.javafx.models;
 
+import com.javafx.controllers.ProyectoFormController;
+import com.javafx.controllers.ProyectoTableController;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,11 +14,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Proyecto {
 
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id private Long id;
       @Column(unique = true) private String nombre;
       @Column private Date fecha_inicio;
       @Column private Boolean finalizado;
-      @OneToMany(cascade = CascadeType.ALL) private List<Empleado> empleados = new ArrayList<>();
+//      'FetchType' indica que, siempre que se carge una entidad clase 'Proyecto', se deberán cargar (en la misma sesión)
+//      todos lalos empleados correspondientes
+      @OneToMany(fetch = FetchType.EAGER) private List<Empleado> empleados;
 
       @Override
       public String toString() {

@@ -1,13 +1,10 @@
 package com.javafx.controllers;
 
 import com.javafx.beans.Dialog;
-import com.javafx.beans.Admin;
 import com.javafx.models.Proyecto;
-import com.javafx.models.Empleado;
 import com.javafx.interfaces.Refreshable;
 import com.javafx.services.ProyectoService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -16,13 +13,13 @@ import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 // indica que esta clase está gestionada por spring (similar a @Service, @Controller, ...)
-@Component
+@Controller
 @Slf4j
 public class IndexController implements Initializable, Refreshable {
 
@@ -33,9 +30,8 @@ public class IndexController implements Initializable, Refreshable {
       @Autowired private String texto;
       @Autowired private ProyectoService servicio;
       @Autowired private Dialog dialog;
-      @Autowired private Admin utilities;
 
-      @Autowired private ProyectosFormController proyectosFormController;
+      @Autowired private ProyectoFormController proyectoFormController;
 
       @FXML private ListView<Proyecto> proyectosLV;
 
@@ -46,8 +42,7 @@ public class IndexController implements Initializable, Refreshable {
 
       @Override @FXML
       public void refresh() {
-            ObservableList<Proyecto> data = FXCollections.observableList(servicio.getAll());
-            proyectosLV.setItems(data);
+            proyectosLV.setItems(FXCollections.observableList(servicio.getAll()));
       }
 
       @FXML
@@ -67,7 +62,7 @@ public class IndexController implements Initializable, Refreshable {
                     }
             );
 
-            } catch (Exception e) {utilities.manageException(e);}
+            } catch (Exception e) {dialog.exceptionDialog(e);}
       }
 
       @FXML
@@ -77,9 +72,9 @@ public class IndexController implements Initializable, Refreshable {
             if (me.getButton() == MouseButton.PRIMARY && seleccion != null) {
             try {
 
-            proyectosFormController.fillEntries(servicio.getProyecto(seleccion.toString()).get());
+            proyectoFormController.fillFields(seleccion);
             log.info("Archivo cargado con éxito");
 
-            } catch (Exception e) {utilities.manageException(e);}}
+            } catch (Exception e) {dialog.exceptionDialog(e);}}
       }
 }

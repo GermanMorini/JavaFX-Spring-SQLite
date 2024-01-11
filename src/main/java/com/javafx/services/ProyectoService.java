@@ -21,8 +21,8 @@ public class ProyectoService {
             return repo.findAll();
       }
 
-      public Optional<Proyecto> getProyecto(String pname) {
-            return repo.findByNombre(pname);
+      public Optional<Proyecto> getProyecto(String id) {
+            return repo.findById(id);
       }
 
       public void saveProyecto(Proyecto p) {

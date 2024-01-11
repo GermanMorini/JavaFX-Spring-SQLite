@@ -2,11 +2,13 @@ package com.javafx.beans;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.awt.Dimension;
 
 @Component
+@Slf4j
 public class Dialog {
 
       private final Dimension DIMENSION = new Dimension(690, 420);
@@ -38,5 +40,24 @@ public class Dialog {
             al.setHeight(DIMENSION.height);
             al.setResizable(true);
             al.showAndWait().ifPresent(action);
+      }
+
+      public void exceptionDialog(Exception e) {
+            log.error(e.getClass().getName() + ":\n" + e.getMessage());
+            showDialog(
+                    Alert.AlertType.ERROR,
+                    e.getClass().getName(),
+                    e.getMessage(),
+                    "Error"
+            );
+      }
+
+      public void unfilledFormDialog() {
+            showDialog(
+                    Alert.AlertType.WARNING,
+                    "Faltan rellenar campos",
+                    "Rellena los que faltan y volvé a intentar",
+                    "Advertencia"
+            );
       }
 }

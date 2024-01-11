@@ -1,10 +1,11 @@
 package com.javafx.controllers;
 
-import com.javafx.beans.Admin;
 import com.javafx.beans.Dialog;
 import com.javafx.models.Proyecto;
 import com.javafx.interfaces.Refreshable;
 import com.javafx.services.ProyectoService;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PostRemove;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,18 +15,17 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@Component
+@Controller
 @Slf4j
-public class ProyectosTableController implements Initializable, Refreshable {
+public class ProyectoTableController implements Initializable, Refreshable {
 
       @Autowired private ProyectoService servicio;
       @Autowired private Dialog dialog;
-      @Autowired private Admin admin;
       @Autowired private IndexController indexController;
 
       @FXML private TableView<Proyecto> tablaProyectos; // ver la anotación que hay en el .fxml línea ~160
@@ -34,6 +34,11 @@ public class ProyectosTableController implements Initializable, Refreshable {
       public void initialize(URL url, ResourceBundle resourceBundle) {
             tablaProyectos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             refresh();
+      }
+
+      @Override @FXML
+      public void refresh() {
+            tablaProyectos.setItems(FXCollections.observableList(servicio.getAll()));
       }
 
       private void borrarSeleccion() {
@@ -46,7 +51,7 @@ public class ProyectosTableController implements Initializable, Refreshable {
             servicio.deleteAllById(selection);
             refresh();
             indexController.refresh();
-            } catch (Exception e) {admin.manageException(e);}
+            } catch (Exception e) {dialog.exceptionDialog(e);}
       }
 
       @FXML
@@ -58,8 +63,5 @@ public class ProyectosTableController implements Initializable, Refreshable {
             );
       }
 
-      @Override @FXML
-      public void refresh() {
-            tablaProyectos.setItems(FXCollections.observableList(servicio.getAll()));
-      }
+
 }

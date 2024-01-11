@@ -9,7 +9,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.javafx.controllers.ProyectosTableController"
+            fx:controller="com.javafx.controllers.ProyectoTableController"
             prefHeight="400.0" prefWidth="600.0">
         <children>
             <TableView fx:id="tablaProyectos" layoutX="56.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
