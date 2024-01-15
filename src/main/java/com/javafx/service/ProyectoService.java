@@ -1,7 +1,7 @@
-package com.javafx.services;
+package com.javafx.service;
 
-import com.javafx.models.Proyecto;
-import com.javafx.repositories.ProyectoRepository;
+import com.javafx.model.Proyecto;
+import com.javafx.repository.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

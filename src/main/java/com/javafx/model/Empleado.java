@@ -1,7 +1,5 @@
-package com.javafx.models;
+package com.javafx.model;
 
-import com.javafx.controllers.EmpleadoFormController;
-import com.javafx.controllers.EmpleadoTableController;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,15 +11,16 @@ import java.util.List;
 @Table(name = "empleados")
 @AllArgsConstructor
 @NoArgsConstructor
-// Un listener es una clase que realiza acciones cuando ocurren cambios en la base de datos
 public class Empleado {
 
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       @Id private Long id;
       @Column private String nombre;
       @Column private String apellido;
-      @Column(unique = true) private Integer dni;
       @Column private Integer edad;
+      @Column(unique = true) private Integer dni; // por razones de seguridad, en la BD se encripta toda la información sensible
+      @Column private Long telefono;
+      @Column private String email;
 //      'mappedBy' es el nombre del campo en la entidad referenciada
       @ManyToMany(fetch = FetchType.EAGER, mappedBy = "empleados")
       private List<Proyecto> proyectos;

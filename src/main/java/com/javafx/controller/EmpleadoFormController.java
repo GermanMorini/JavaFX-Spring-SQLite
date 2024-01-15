@@ -1,12 +1,13 @@
-package com.javafx.controllers;
+package com.javafx.controller;
 
-import com.javafx.beans.Dialog;
-import com.javafx.models.Empleado;
+import com.javafx.bean.Dialog;
+import com.javafx.model.Empleado;
 import com.javafx.interfaces.Form;
 import com.javafx.interfaces.Refreshable;
-import com.javafx.services.EmpleadoService;
+import com.javafx.service.EmpleadoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
       @FXML private TextField apellidoTF;
       @FXML private TextField documentoTF;
       @FXML private TextField edadTF;
+      @FXML private TextField telefonoTF;
+      @FXML private TextField emailTF;
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,6 +48,8 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
             apellidoTF.setText(em.getApellido());
             documentoTF.setText(em.getDni().toString());
             edadTF.setText(em.getEdad().toString());
+            telefonoTF.setText(em.getTelefono().toString());
+            emailTF.setText(em.getEmail());
       }
 
       @Override @FXML
@@ -54,6 +59,8 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
             apellidoTF.clear();
             documentoTF.clear();
             edadTF.clear();
+            telefonoTF.clear();
+            emailTF.clear();
       }
 
       @Override
@@ -62,7 +69,9 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
                     !nombreTF.getText().isBlank() &&
                     !apellidoTF.getText().isBlank() &&
                     !documentoTF.getText().isBlank() &&
-                    !edadTF.getText().isBlank();
+                    !edadTF.getText().isBlank() &&
+                    !telefonoTF.getText().isBlank() &&
+                    !emailTF.getText().isBlank();
       }
 
       @Override
@@ -71,8 +80,10 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
                     Long.valueOf(idTF.getText()),
                     nombreTF.getText(),
                     apellidoTF.getText(),
-                    Integer.valueOf(documentoTF.getText()),
                     Integer.valueOf(edadTF.getText()),
+                    Integer.valueOf(documentoTF.getText()),
+                    Long.valueOf(telefonoTF.getText()),
+                    emailTF.getText(),
                     new ArrayList<>()
             );
       }
@@ -83,6 +94,12 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
             else {
                   servicio.save(getInstance());
                   proyectoFormController.refresh();
+                  dialog.showDialog(
+                          Alert.AlertType.INFORMATION,
+                          "Empleado registrado con éxito",
+                          "",
+                          "Información"
+                  );
             }
       }
 }

@@ -1,9 +1,9 @@
-package com.javafx.controllers;
+package com.javafx.controller;
 
-import com.javafx.beans.Dialog;
+import com.javafx.bean.Dialog;
 import com.javafx.interfaces.Refreshable;
-import com.javafx.models.Empleado;
-import com.javafx.services.EmpleadoService;
+import com.javafx.model.Empleado;
+import com.javafx.service.EmpleadoService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

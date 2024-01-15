@@ -1,6 +1,6 @@
-package com.javafx.repositories;
+package com.javafx.repository;
 
-import com.javafx.models.Empleado;
+import com.javafx.model.Empleado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

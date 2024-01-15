@@ -1,16 +1,14 @@
-package com.javafx.beans;
+package com.javafx.bean;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Configuration
-@EnableTransactionManagement
 public class Configuracion {
 //      Bean es un elemento de spring que permite inyectar dependencias
       @Bean("saludoLbl")
