@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 @Controller
@@ -19,6 +20,7 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
 
       @Autowired private EmpleadoService servicio;
       @Autowired private Dialog dialog;
+      @Autowired private ProyectoFormController proyectoFormController;
 
       @FXML private TextField idTF;
       @FXML private TextField nombreTF;
@@ -70,13 +72,9 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
                     nombreTF.getText(),
                     apellidoTF.getText(),
                     Integer.valueOf(documentoTF.getText()),
-                    Integer.valueOf(edadTF.getText())
+                    Integer.valueOf(edadTF.getText()),
+                    new ArrayList<>()
             );
-      }
-
-      @FXML
-      private void eliminarAP() {
-            servicio.delete(getInstance());
       }
 
       @FXML
@@ -84,6 +82,7 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
             if (!allFieldsCompleted()) {dialog.unfilledFormDialog();}
             else {
                   servicio.save(getInstance());
+                  proyectoFormController.refresh();
             }
       }
 }

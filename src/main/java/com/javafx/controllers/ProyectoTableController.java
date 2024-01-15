@@ -4,8 +4,6 @@ import com.javafx.beans.Dialog;
 import com.javafx.models.Proyecto;
 import com.javafx.interfaces.Refreshable;
 import com.javafx.services.ProyectoService;
-import jakarta.persistence.PostPersist;
-import jakarta.persistence.PostRemove;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +26,7 @@ public class ProyectoTableController implements Initializable, Refreshable {
       @Autowired private ProyectoService servicio;
       @Autowired private Dialog dialog;
       @Autowired private IndexController indexController;
+      @Autowired private ProyectoFormController proyectoFormController;
 
       @FXML private TableView<Proyecto> tablaProyectos; // ver la anotación que hay en el .fxml línea ~160
 
@@ -63,5 +63,12 @@ public class ProyectoTableController implements Initializable, Refreshable {
             );
       }
 
+      @FXML
+      private void proyectosTableMC(MouseEvent me) {
+            System.out.println(me.getButton().toString());
 
+            Proyecto p = tablaProyectos.getSelectionModel().getSelectedItem();
+
+            if (p != null) proyectoFormController.fillFields(p);
+      }
 }

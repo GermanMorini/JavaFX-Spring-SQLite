@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.javafx.controllers.ProyectoTableController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="608.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controllers.ProyectoTableController">
         <children>
-            <TableView fx:id="tablaProyectos" layoutX="56.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <TableView fx:id="tablaProyectos" layoutX="56.0" layoutY="52.0" onMouseClicked="#proyectosTableMC" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                 <columns>
                     <TableColumn prefWidth="123.0" text="ID">
 <!--                    se debe añadir EL 'cellValueFactory' para que la tabla relacione los campos del modelo -->
@@ -49,6 +47,9 @@
                         </items>
                     </ContextMenu>
                 </contextMenu>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
             </TableView>
         </children>
     </AnchorPane>

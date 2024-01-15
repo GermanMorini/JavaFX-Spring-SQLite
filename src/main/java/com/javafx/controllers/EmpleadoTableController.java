@@ -3,10 +3,7 @@ package com.javafx.controllers;
 import com.javafx.beans.Dialog;
 import com.javafx.interfaces.Refreshable;
 import com.javafx.models.Empleado;
-import com.javafx.models.Proyecto;
 import com.javafx.services.EmpleadoService;
-import jakarta.persistence.PostPersist;
-import jakarta.persistence.PostRemove;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +22,7 @@ public class EmpleadoTableController implements Initializable, Refreshable {
 
       @Autowired private EmpleadoService service;
       @Autowired private Dialog dialog;
+      @Autowired private EmpleadoFormController empleadoFormController;
 
       @FXML private TableView<Empleado> tablaEmpleados;
 
@@ -39,6 +37,18 @@ public class EmpleadoTableController implements Initializable, Refreshable {
             tablaEmpleados.setItems(FXCollections.observableList(service.getAll()));
       }
 
+      private void borrarSeleccion() {
+            try {
+
+                  ObservableList<Empleado> selection = tablaEmpleados.getSelectionModel().getSelectedItems();
+
+                  if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
+
+                  service.deleteAllInList(selection);
+                  refresh();
+            } catch (Exception e) {dialog.exceptionDialog(e);}
+      }
+
       @FXML
       private void eliminarSeleccionados() {
             dialog.showConfirmDialog(
@@ -48,15 +58,10 @@ public class EmpleadoTableController implements Initializable, Refreshable {
             );
       }
 
-      private void borrarSeleccion() {
-            try {
+      @FXML
+      private void empleadosTableMC() {
+            Empleado em = tablaEmpleados.getSelectionModel().getSelectedItem();
 
-            ObservableList<Empleado> selection = tablaEmpleados.getSelectionModel().getSelectedItems();
-
-            if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
-
-            service.deleteAllInList(selection);
-            refresh();
-            } catch (Exception e) {dialog.exceptionDialog(e);}
+            if (em != null) empleadoFormController.fillFields(em);
       }
 }

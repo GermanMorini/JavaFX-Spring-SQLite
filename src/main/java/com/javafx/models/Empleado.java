@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity @Data
 @Table(name = "empleados")
 @AllArgsConstructor
@@ -20,6 +22,10 @@ public class Empleado {
       @Column private String apellido;
       @Column(unique = true) private Integer dni;
       @Column private Integer edad;
+//      'mappedBy' es el nombre del campo en la entidad referenciada
+      @ManyToMany(fetch = FetchType.EAGER, mappedBy = "empleados")
+      private List<Proyecto> proyectos;
+//      Referencia: https://www.baeldung.com/jpa-many-to-many
 
       @Override
       public String toString() {

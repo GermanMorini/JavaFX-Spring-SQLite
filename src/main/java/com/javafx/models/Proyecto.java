@@ -19,9 +19,17 @@ public class Proyecto {
       @Column(unique = true) private String nombre;
       @Column private Date fecha_inicio;
       @Column private Boolean finalizado;
-//      'FetchType' indica que, siempre que se carge una entidad clase 'Proyecto', se deberán cargar (en la misma sesión)
-//      todos lalos empleados correspondientes
-      @OneToMany(fetch = FetchType.EAGER) private List<Empleado> empleados;
+
+//      'ManyToMany' indica que un proyecto tiene varios empleados, y un empleados tiene varios proyectos (ver 'Empleados')
+//      'FetchType' indica que se deberán cargar (en la misma sesión) todos los empleados correspondientes
+      @ManyToMany(fetch = FetchType.EAGER)
+      @JoinTable(
+              name = "empleados_designados",
+              joinColumns = @JoinColumn(name = "proyecto_id"),
+              inverseJoinColumns = @JoinColumn(name = "empleado_id")
+      )
+      private List<Empleado> empleados;
+//      Referencia; https://www.baeldung.com/jpa-many-to-many
 
       @Override
       public String toString() {

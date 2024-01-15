@@ -7,8 +7,6 @@ import com.javafx.interfaces.Form;
 import com.javafx.interfaces.Refreshable;
 import com.javafx.services.EmpleadoService;
 import com.javafx.services.ProyectoService;
-import jakarta.persistence.PostPersist;
-import jakarta.persistence.PostRemove;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,8 +19,7 @@ import org.springframework.stereotype.Controller;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Controller
@@ -38,19 +35,27 @@ public class ProyectoFormController implements Initializable, Refreshable, Form<
       @FXML private DatePicker fecha_inicioDP;
       @FXML private CheckBox finalizadoCB;
       @FXML private ListView<Empleado> empleadosLV;
-      @FXML private ChoiceBox<Empleado> empleadosCB;
+      @FXML private MenuButton empleadosMB;
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
-            empleadosCB.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-                  empleadosLV.getItems().add(newVal);
-            });
             refresh();
       }
 
       @Override
       public void refresh() {
-            empleadosCB.setItems(FXCollections.observableList(empService.getAll()));
+            empleadosMB.getItems().clear();
+            List<Empleado> empl = empService.getAll();
+            List<MenuItem> items = empleadosMB.getItems();
+
+            empl.forEach(em -> {
+                  MenuItem mi = new MenuItem(em.getNombre());
+                  mi.setOnAction(e -> {
+                        e.consume();
+                        empleadosLV.getItems().add(em);
+                  });
+                  items.add(mi);
+            });
       }
 
       @Override
@@ -94,28 +99,6 @@ public class ProyectoFormController implements Initializable, Refreshable, Form<
                     finalizadoCB.isSelected(),
                     empleadosLV.getItems().stream().toList()
             );
-      }
-
-      // TODO: usar el boton de guardar en su lugar
-      @FXML
-      private void editarAP() {
-            try {
-
-            Proyecto original = servicio.getProyecto(idTF.getText()).get();
-            Proyecto edit = getInstance();
-
-            dialog.showConfirmDialog(
-                    "¿Deseas editar '" + original.getNombre() + "'?",
-                    "Editar registro",
-                    res -> {
-                          if (res == ButtonType.OK) {
-                                servicio.saveProyecto(edit);
-                                dialog.showInfoDialog("Registro editado", "");
-                          }
-                    }
-            );
-
-            } catch (Exception e) {dialog.exceptionDialog(e);}
       }
 
       @FXML
