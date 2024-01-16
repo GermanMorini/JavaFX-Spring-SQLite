@@ -1,6 +1,6 @@
 package com.javafx;
 
-import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.CupertinoDark;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +24,7 @@ public class Main extends Application {
 //	Este método se usa para configurar la aplicación antes de mostrar la parte gráfica
 	@Override
 	public void init() throws Exception {
-		Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+		Application.setUserAgentStylesheet(new CupertinoDark().getUserAgentStylesheet());
 
 //		Inicia la aplicación Spring Boot y obtiene el contexto de la aplicación,
 //		que se puede utilizar para obtener beans administrados por Spring.
@@ -41,7 +41,7 @@ public class Main extends Application {
 //	Se ejecuta para iniciar la parte gráfica y la lógica principal
 	@Override
 	public void start(Stage stage) throws Exception {
-		Scene scene = new Scene(rootNode, 1300, 800, false, SceneAntialiasing.BALANCED);
+		Scene scene = new Scene(rootNode, 1600, 950, false, SceneAntialiasing.BALANCED);
 		stage.setScene(scene);
 		stage.show();
 	}

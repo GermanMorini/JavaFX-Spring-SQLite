@@ -92,14 +92,12 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
       private void guardarAP() {
             if (!allFieldsCompleted()) {dialog.unfilledFormDialog();}
             else {
-                  servicio.save(getInstance());
-                  proyectoFormController.refresh();
-                  dialog.showDialog(
-                          Alert.AlertType.INFORMATION,
-                          "Empleado registrado con éxito",
-                          "",
-                          "Información"
-                  );
-            }
+
+            try {
+
+            servicio.save(getInstance());
+            proyectoFormController.refresh();
+
+            } catch (Exception e) {dialog.exceptionDialog(e);}}
       }
 }

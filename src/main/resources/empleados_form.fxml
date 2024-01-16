@@ -29,7 +29,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="idTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <TextField fx:id="idTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
@@ -37,7 +37,7 @@
                         <Font size="20.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="nombreTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <TextField fx:id="nombreTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
@@ -45,7 +45,7 @@
                         <Font size="20.0" />
                     </font>
                 </TextField>
-         <TextField fx:id="apellidoTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <TextField fx:id="apellidoTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <font>
                <Font size="20.0" />
             </font>
@@ -53,7 +53,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="documentoTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <TextField fx:id="documentoTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                <Font size="20.0" />
             </font>
@@ -61,7 +61,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="edadTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <TextField fx:id="edadTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <font>
                <Font size="20.0" />
             </font>
@@ -69,7 +69,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="telefonoTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <TextField fx:id="telefonoTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <font>
                <Font size="20.0" />
             </font>
@@ -77,7 +77,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="emailTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <TextField fx:id="emailTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <font>
                <Font size="20.0" />
             </font>
@@ -108,37 +108,37 @@
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
                 </ButtonBar>
-                <Label text="Identificador" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label text="Identificador:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label text="Nombre" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Label text="Nombre:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label text="Apellido" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Label text="Apellido:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-         <Label text="Edad" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <Label text="Edad:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <font>
                <Font size="20.0" />
             </font>
          </Label>
-         <Label text="Documento" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <Label text="Documento:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
             <font>
                <Font size="20.0" />
             </font>
          </Label>
-         <Label text="Telefono" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+         <Label text="Telefono:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
             <font>
                <Font size="20.0" />
             </font>
          </Label>
-         <Label text="Email" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+         <Label text="Email:" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <font>
                <Font size="20.0" />
             </font>

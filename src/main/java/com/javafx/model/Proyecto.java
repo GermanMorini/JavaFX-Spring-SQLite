@@ -21,7 +21,7 @@ public class Proyecto {
 //      'ManyToMany' indica que un proyecto tiene varios empleados, y un empleado tiene varios proyectos (ver 'Empleados')
 //      'FetchType' indica que se deberán cargar (en la misma sesión) todos los empleados correspondientes
       @ManyToMany(fetch = FetchType.EAGER)
-      @JoinTable(
+      @JoinTable( // Esta anotación no hace falta, es en caso de ya tener armada la base de datos
               name = "empleados_designados", // nombre de la tabla que relaciona proyectos-empleados
               joinColumns = @JoinColumn(name = "proyecto_id"), // nombre de la col. que referencia al proyecto
               inverseJoinColumns = @JoinColumn(name = "empleado_id") // nombre de la col. que designa un emp. a un proy.

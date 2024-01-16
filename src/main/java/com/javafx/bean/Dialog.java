@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.awt.Dimension;
 
+// indica que esta clase está gestionada por spring (similar a @Service, @Controller, ...)
 @Component
 @Slf4j
 public class Dialog {

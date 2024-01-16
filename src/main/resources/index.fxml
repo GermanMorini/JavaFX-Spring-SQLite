@@ -3,38 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controller.IndexController">
-    <SplitPane dividerPositions="0.2542372881355932" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="798.0" prefWidth="667.0">
-            <ListView fx:id="proyectosLV" editable="true" layoutX="25.0" layoutY="120.0"
-                      onMouseClicked="#proyectosLVMC" prefHeight="200.0" prefWidth="200.0"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="0.0">
-                <cursor>
-                    <Cursor fx:constant="HAND"/>
-                </cursor>
-            </ListView>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <TabPane layoutX="106.0" layoutY="82.0" prefHeight="200.0" prefWidth="200.0"
-                     style="-fx-border-color: #000000;" tabClosingPolicy="UNAVAILABLE"
-                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                     AnchorPane.topAnchor="0.0">
-                <Tab closable="false" text="Formulario proyectos">
+<AnchorPane prefHeight="950.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controller.IndexController">
+    <TabPane layoutX="106.0" layoutY="82.0" prefHeight="200.0" prefWidth="200.0"
+             style="-fx-border-color: #000000;" tabClosingPolicy="UNAVAILABLE"
+             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.topAnchor="0.0">
+        <Tab closable="false" text="Proyectos">
+            <AnchorPane>
+                <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                     <fx:include source="proyectos_form.fxml"/>
-                </Tab>
-                <Tab closable="false" text="Formulario empleados">
-                    <fx:include source="empleados_form.fxml"/>
-                </Tab>
-                <Tab closable="false" text="Tabla proyectos">
                     <fx:include source="proyectos_table.fxml"/>
-                </Tab>
-                <Tab closable="false" text="Tabla empleados">
+                </SplitPane>
+            </AnchorPane>
+        </Tab>
+        <Tab closable="false" text="Empleados">
+            <AnchorPane>
+                <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                    <fx:include source="empleados_form.fxml"/>
                     <fx:include source="empleados_table.fxml"/>
-                </Tab>
-            </TabPane>
-        </AnchorPane>
-    </SplitPane>
+                </SplitPane>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
 </AnchorPane>
