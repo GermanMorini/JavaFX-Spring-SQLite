@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="656.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controller.EmpleadoFormController">
+<AnchorPane prefHeight="656.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controller.AlumnoFormController">
         <GridPane layoutX="264.0" layoutY="192.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="745.0" minWidth="10.0" prefWidth="322.0" />
@@ -29,7 +23,21 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="idTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <TextField fx:id="idTF" editable="false" onMouseClicked="#generarID" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </GridPane.margin>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <tooltip>
+                        <Tooltip contentDisplay="CENTER" text="Click para generar" />
+                    </tooltip>
+                </TextField>
+                <TextField fx:id="nombreTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                     </GridPane.margin>
@@ -37,15 +45,7 @@
                         <Font size="20.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="nombreTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                    <GridPane.margin>
-                        <Insets left="20.0" right="20.0" />
-                    </GridPane.margin>
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </TextField>
-         <TextField fx:id="apellidoTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <TextField fx:id="apellidoTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <font>
                <Font size="20.0" />
             </font>
@@ -53,7 +53,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="documentoTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <TextField fx:id="documentoTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                <Font size="20.0" />
             </font>
@@ -61,7 +61,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="edadTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <TextField fx:id="edadTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <font>
                <Font size="20.0" />
             </font>
@@ -69,7 +69,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="telefonoTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <TextField fx:id="telefonoTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <font>
                <Font size="20.0" />
             </font>
@@ -77,7 +77,7 @@
                <Insets left="20.0" right="20.0" />
             </GridPane.margin>
          </TextField>
-         <TextField fx:id="emailTF" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <TextField fx:id="emailTF" onAction="#guardarAP" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <font>
                <Font size="20.0" />
             </font>

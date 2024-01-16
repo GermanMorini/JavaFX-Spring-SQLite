@@ -1,6 +1,6 @@
 package com.javafx.repository;
 
-import com.javafx.model.Proyecto;
+import com.javafx.model.Materia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProyectoRepository extends JpaRepository<Proyecto, String> {
+public interface MateriaRepository extends JpaRepository<Materia, String> {
       @Override
-      List<Proyecto> findAll();
+      List<Materia> findAll();
 
       @Override
-      Optional<Proyecto> findById(String s);
+      Optional<Materia> findById(String s);
 
-      Optional<Proyecto> findByNombre(String n);
+      Optional<Materia> findByNombre(String n);
 
       @Override
-      <S extends Proyecto> S save(S entity);
+      <S extends Materia> S save(S entity);
 
       @Override
       void deleteById(String s);

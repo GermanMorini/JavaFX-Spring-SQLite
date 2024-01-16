@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="608.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.javafx.controller.ProyectoTableController">
-    <TableView fx:id="tablaProyectos" layoutX="56.0" layoutY="52.0" onMouseClicked="#proyectosTableMC"
+            fx:controller="com.javafx.controller.MateriaTableController">
+    <TableView fx:id="tablaMaterias" layoutX="56.0" layoutY="52.0" onMouseClicked="#proyectosTableMC"
                prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="15.0"
                AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
         <columns>
@@ -32,9 +32,9 @@
                     <PropertyValueFactory property="fecha_inicio"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="445.0" text="Finalizado">
+            <TableColumn prefWidth="445.0" text="Cátedra">
                 <cellValueFactory>
-                    <PropertyValueFactory property="finalizado"/>
+                    <PropertyValueFactory property="catedra"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>

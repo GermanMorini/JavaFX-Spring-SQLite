@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="821.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controller.EmpleadoTableController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.controller.AlumnoTableController">
     <TableView fx:id="tablaEmpleados" layoutX="56.0" layoutY="52.0" onMouseClicked="#empleadosTableMC"
                prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="15.0"
                AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" editable="true">

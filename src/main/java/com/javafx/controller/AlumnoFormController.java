@@ -1,27 +1,30 @@
 package com.javafx.controller;
 
 import com.javafx.bean.Dialog;
-import com.javafx.model.Empleado;
+import com.javafx.model.Alumno;
 import com.javafx.interfaces.Form;
 import com.javafx.interfaces.Refreshable;
-import com.javafx.service.EmpleadoService;
+import com.javafx.service.AlumnoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 @Controller
-public class EmpleadoFormController implements Initializable, Refreshable, Form<Empleado> {
+public class AlumnoFormController implements Initializable, Refreshable, Form<Alumno> {
 
-      @Autowired private EmpleadoService servicio;
+//      @Autowired permite inyectar dependencias
+//      permite que spring instancie la clase cuando sea necesario
+//      similar a la anotación @FXML, que inyecta los controles de la escena
+      @Autowired private AlumnoService servicio;
       @Autowired private Dialog dialog;
-      @Autowired private ProyectoFormController proyectoFormController;
+      @Autowired private MateriaFormController materiaFormController;
 
       @FXML private TextField idTF;
       @FXML private TextField nombreTF;
@@ -30,6 +33,8 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
       @FXML private TextField edadTF;
       @FXML private TextField telefonoTF;
       @FXML private TextField emailTF;
+
+      private final Random r = new Random();
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,7 +47,7 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
       }
 
       @Override
-      public void fillFields(Empleado em) {
+      public void fillFields(Alumno em) {
             idTF.setText(em.getId().toString());
             nombreTF.setText(em.getNombre());
             apellidoTF.setText(em.getApellido());
@@ -75,8 +80,8 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
       }
 
       @Override
-      public Empleado getInstance() {
-            return new Empleado(
+      public Alumno getInstance() {
+            return new Alumno(
                     Long.valueOf(idTF.getText()),
                     nombreTF.getText(),
                     apellidoTF.getText(),
@@ -89,6 +94,11 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
       }
 
       @FXML
+      private void generarID() {
+            idTF.setText(r.nextLong(1000000, 9999999) + "");
+      }
+
+      @FXML
       private void guardarAP() {
             if (!allFieldsCompleted()) {dialog.unfilledFormDialog();}
             else {
@@ -96,7 +106,7 @@ public class EmpleadoFormController implements Initializable, Refreshable, Form<
             try {
 
             servicio.save(getInstance());
-            proyectoFormController.refresh();
+            materiaFormController.refresh();
 
             } catch (Exception e) {dialog.exceptionDialog(e);}}
       }

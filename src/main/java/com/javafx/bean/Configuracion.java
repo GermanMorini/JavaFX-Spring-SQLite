@@ -1,21 +1,23 @@
 package com.javafx.bean;
 
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 @Configuration
 public class Configuracion {
 //      Bean es un elemento de spring que permite inyectar dependencias
-      @Bean("saludoLbl")
-      public String getSaludo() {
-            LocalDateTime ldt = LocalDateTime.now();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss - dd/MM/yy");
-            return "Te saludo en esta fecha: " + dtf.format(ldt);
+      @Bean
+      @Qualifier("generador-id-alumnos")
+      public IdentifierGenerator getID() {
+            Random r = new Random();
+            return (s, o) -> r.nextInt(1000000,9999999);
       }
 
 //      Este bean permite configurar la fuente de datos para que pueda usar el archivo de resources

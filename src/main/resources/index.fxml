@@ -8,19 +8,19 @@
              style="-fx-border-color: #000000;" tabClosingPolicy="UNAVAILABLE"
              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
              AnchorPane.topAnchor="0.0">
-        <Tab closable="false" text="Proyectos">
+        <Tab closable="false" text="Materias">
             <AnchorPane>
                 <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    <fx:include source="proyectos_form.fxml"/>
-                    <fx:include source="proyectos_table.fxml"/>
+                    <fx:include source="materias_form.fxml"/>
+                    <fx:include source="materias_table.fxml"/>
                 </SplitPane>
             </AnchorPane>
         </Tab>
-        <Tab closable="false" text="Empleados">
+        <Tab closable="false" text="Alumnos">
             <AnchorPane>
                 <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    <fx:include source="empleados_form.fxml"/>
-                    <fx:include source="empleados_table.fxml"/>
+                    <fx:include source="alumnos_form.fxml"/>
+                    <fx:include source="alumnos_table.fxml"/>
                 </SplitPane>
             </AnchorPane>
         </Tab>

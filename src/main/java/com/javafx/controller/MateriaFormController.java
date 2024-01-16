@@ -1,12 +1,12 @@
 package com.javafx.controller;
 
 import com.javafx.bean.Dialog;
-import com.javafx.model.Empleado;
-import com.javafx.model.Proyecto;
+import com.javafx.model.Alumno;
+import com.javafx.model.Materia;
 import com.javafx.interfaces.Form;
 import com.javafx.interfaces.Refreshable;
-import com.javafx.service.EmpleadoService;
-import com.javafx.service.ProyectoService;
+import com.javafx.service.AlumnoService;
+import com.javafx.service.MateriaService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,56 +19,63 @@ import org.springframework.stereotype.Controller;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 @Controller
 @Slf4j
-public class ProyectoFormController implements Initializable, Refreshable, Form<Proyecto> {
+public class MateriaFormController implements Initializable, Refreshable, Form<Materia> {
 
-      @Autowired private ProyectoService servicio;
-      @Autowired private EmpleadoService empService;
+      @Autowired private MateriaService servicio;
+      @Autowired private AlumnoService alService;
       @Autowired private Dialog dialog;
 
       @FXML private TextField idTF;
       @FXML private TextField nombreTF;
       @FXML private DatePicker fecha_inicioDP;
-      @FXML private CheckBox finalizadoCB;
-      @FXML private ListView<Empleado> empleadosLV;
-      @FXML private MenuButton empleadosMB;
+      @FXML private ChoiceBox<Character> catedraCB;
+      @FXML private ListView<Alumno> alumnosLV;
+      @FXML private MenuButton alumnosMB;
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
+            List<Character> list = new ArrayList<>();
+            for (char c : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+                  list.add(c);
+            }
+            catedraCB.setItems(FXCollections.observableList(list));
             refresh();
       }
 
       @Override
       public void refresh() {
-            empleadosMB.getItems().clear();
-            List<Empleado> empl = empService.getAll();
-            List<MenuItem> items = empleadosMB.getItems();
+            alumnosMB.getItems().clear();
+            List<Alumno> alumnos = alService.getAll();
+            List<MenuItem> items = alumnosMB.getItems();
 
-            empl.forEach(em -> {
-                  MenuItem mi = new MenuItem(em.getNombre());
+            alumnos.forEach(al -> {
+                  MenuItem mi = new MenuItem(al.getNombre());
                   mi.setOnAction(e -> {
                         e.consume();
-                        empleadosLV.getItems().add(em);
+                        alumnosLV.getItems().add(al);
                   });
                   items.add(mi);
             });
       }
 
       @Override
-      public void fillFields(Proyecto p) {
+      public void fillFields(Materia mat) {
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat sdf2 = new SimpleDateFormat("d/M/yyyy");
 
-            idTF.setText(p.getId().toString());
-            nombreTF.setText(p.getNombre());
-            fecha_inicioDP.setValue(LocalDate.parse(sdf1.format(p.getFecha_inicio())));
-            fecha_inicioDP.getEditor().setText(sdf2.format(p.getFecha_inicio()));
-            finalizadoCB.setSelected(p.getFinalizado());
-            empleadosLV.setItems(FXCollections.observableList(p.getEmpleados()));
+            idTF.setText(mat.getId().toString());
+            nombreTF.setText(mat.getNombre());
+            fecha_inicioDP.setValue(LocalDate.parse(sdf1.format(mat.getFecha_inicio())));
+            fecha_inicioDP.getEditor().setText(sdf2.format(mat.getFecha_inicio()));
+            catedraCB.setValue(mat.getCatedra());
+            alumnosLV.setItems(FXCollections.observableList(mat.getAlumnos()));
       }
 
       @Override @FXML
@@ -76,28 +83,27 @@ public class ProyectoFormController implements Initializable, Refreshable, Form<
             idTF.clear();
             nombreTF.clear();
             fecha_inicioDP.getEditor().clear();
-            empleadosLV.getItems().clear();
+            alumnosLV.getItems().clear();
       }
 
       @Override
       public boolean allFieldsCompleted() {
-            return !idTF.getText().isBlank() &&
-                    !nombreTF.getText().isBlank() &&
+            return !nombreTF.getText().isBlank() &&
                     !fecha_inicioDP.getEditor().getText().isBlank() &&
-                    !empleadosLV.getItems().isEmpty();
+                    !alumnosLV.getItems().isEmpty();
       }
 
       @Override
       @SneakyThrows
-      public Proyecto getInstance() {
+      public Materia getInstance() {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-            return new Proyecto(
-                    Long.valueOf(idTF.getText()),
+            return new Materia(
+                    UUID.fromString(idTF.getText()),
                     nombreTF.getText(),
                     sdf.parse(fecha_inicioDP.getValue().toString()),
-                    finalizadoCB.isSelected(),
-                    empleadosLV.getItems().stream().toList()
+                    catedraCB.getValue(),
+                    alumnosLV.getItems().stream().toList()
             );
       }
 
@@ -105,8 +111,8 @@ public class ProyectoFormController implements Initializable, Refreshable, Form<
       private void eliminarSeleccionadoAP() {
             try {
 
-            Empleado sel = empleadosLV.getSelectionModel().getSelectedItem();
-            empleadosLV.getItems().remove(sel);
+            Alumno sel = alumnosLV.getSelectionModel().getSelectedItem();
+            alumnosLV.getItems().remove(sel);
 
             } catch (Exception e) {dialog.exceptionDialog(e);}
       }
@@ -118,9 +124,14 @@ public class ProyectoFormController implements Initializable, Refreshable, Form<
 
             try {
 
-            servicio.saveProyecto(getInstance());
+            servicio.saveMateria(getInstance());
             log.info("Registro guardado con éxito");
 
             } catch (Exception e) {dialog.exceptionDialog(e);}}
+      }
+
+      @FXML
+      private void generarUUID() {
+            idTF.setText(UUID.randomUUID().toString());
       }
 }

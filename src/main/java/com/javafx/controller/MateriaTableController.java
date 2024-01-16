@@ -1,9 +1,9 @@
 package com.javafx.controller;
 
 import com.javafx.bean.Dialog;
+import com.javafx.model.Materia;
 import com.javafx.interfaces.Refreshable;
-import com.javafx.model.Empleado;
-import com.javafx.service.EmpleadoService;
+import com.javafx.service.MateriaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -18,34 +19,35 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Controller
-public class EmpleadoTableController implements Initializable, Refreshable {
+@Slf4j
+public class MateriaTableController implements Initializable, Refreshable {
 
-      @Autowired private EmpleadoService service;
+      @Autowired private MateriaService servicio;
       @Autowired private Dialog dialog;
-      @Autowired private EmpleadoFormController empleadoFormController;
+      @Autowired private MateriaFormController materiaFormController;
 
-      @FXML private TableView<Empleado> tablaEmpleados;
+      @FXML private TableView<Materia> tablaMaterias; // ver la anotación que hay en el .fxml línea ~160
 
       @Override
       public void initialize(URL url, ResourceBundle resourceBundle) {
-            tablaEmpleados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            tablaMaterias.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             refresh();
       }
 
-      @Override
+      @Override @FXML
       public void refresh() {
-            tablaEmpleados.setItems(FXCollections.observableList(service.getAll()));
+            tablaMaterias.setItems(FXCollections.observableList(servicio.getAll()));
       }
 
       private void borrarSeleccion() {
             try {
 
-                  ObservableList<Empleado> selection = tablaEmpleados.getSelectionModel().getSelectedItems();
+            ObservableList<Materia> selection = tablaMaterias.getSelectionModel().getSelectedItems();
 
-                  if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
+            if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
 
-                  service.deleteAllInList(selection);
-                  refresh();
+            servicio.deleteAllById(selection);
+            refresh();
             } catch (Exception e) {dialog.exceptionDialog(e);}
       }
 
@@ -59,9 +61,9 @@ public class EmpleadoTableController implements Initializable, Refreshable {
       }
 
       @FXML
-      private void empleadosTableMC() {
-            Empleado em = tablaEmpleados.getSelectionModel().getSelectedItem();
+      private void proyectosTableMC() {
+            Materia p = tablaMaterias.getSelectionModel().getSelectedItem();
 
-            if (em != null) empleadoFormController.fillFields(em);
+            if (p != null) materiaFormController.fillFields(p);
       }
 }
