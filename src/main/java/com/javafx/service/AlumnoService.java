@@ -19,22 +19,22 @@ public class AlumnoService {
             return repo.findAll();
       }
 
-      public Optional<Alumno> getById(Long id) {
-            return repo.findById(id);
+      public Optional<Alumno> getById(Long clave) {
+            return repo.findById(clave);
       }
 
-      public void save(Alumno e) {
-            repo.save(e);
+      public void save(Alumno al) {
+            repo.save(al);
       }
 
-      public void delete(Alumno em) {
-            repo.deleteById(em.getId());
+      public void delete(Alumno al) {
+            repo.deleteById(al.getClave());
       }
 
-      public void deleteAllInList(List<Alumno> em) {
+      public void deleteAllInList(List<Alumno> al) {
             repo.deleteAllById(
-                    em.stream()
-                            .map(Alumno::getId)
+                    al.stream()
+                            .map(Alumno::getClave)
                             .toList()
             );
       }

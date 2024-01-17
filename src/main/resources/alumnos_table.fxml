@@ -14,9 +14,9 @@
                prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="15.0"
                AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" editable="true">
         <columns>
-            <TableColumn prefWidth="50.0" text="ID">
+            <TableColumn prefWidth="50.0" text="Clave">
                 <cellValueFactory>
-                    <PropertyValueFactory property="id"/>
+                    <PropertyValueFactory property="clave"/>
                 </cellValueFactory>
             </TableColumn>
             <TableColumn prefWidth="140.0" text="Nombre">

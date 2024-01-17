@@ -8,6 +8,8 @@ import com.javafx.service.AlumnoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -26,7 +28,7 @@ public class AlumnoFormController implements Initializable, Refreshable, Form<Al
       @Autowired private Dialog dialog;
       @Autowired private MateriaFormController materiaFormController;
 
-      @FXML private TextField idTF;
+      @FXML private TextField claveTF;
       @FXML private TextField nombreTF;
       @FXML private TextField apellidoTF;
       @FXML private TextField documentoTF;
@@ -48,7 +50,7 @@ public class AlumnoFormController implements Initializable, Refreshable, Form<Al
 
       @Override
       public void fillFields(Alumno em) {
-            idTF.setText(em.getId().toString());
+            claveTF.setText(em.getClave().toString());
             nombreTF.setText(em.getNombre());
             apellidoTF.setText(em.getApellido());
             documentoTF.setText(em.getDni().toString());
@@ -59,7 +61,7 @@ public class AlumnoFormController implements Initializable, Refreshable, Form<Al
 
       @Override @FXML
       public void clearFields() {
-            idTF.clear();
+            claveTF.clear();
             nombreTF.clear();
             apellidoTF.clear();
             documentoTF.clear();
@@ -70,7 +72,7 @@ public class AlumnoFormController implements Initializable, Refreshable, Form<Al
 
       @Override
       public boolean allFieldsCompleted() {
-            return !idTF.getText().isBlank() &&
+            return !claveTF.getText().isBlank() &&
                     !nombreTF.getText().isBlank() &&
                     !apellidoTF.getText().isBlank() &&
                     !documentoTF.getText().isBlank() &&
@@ -82,7 +84,7 @@ public class AlumnoFormController implements Initializable, Refreshable, Form<Al
       @Override
       public Alumno getInstance() {
             return new Alumno(
-                    Long.valueOf(idTF.getText()),
+                    Long.valueOf(claveTF.getText()),
                     nombreTF.getText(),
                     apellidoTF.getText(),
                     Integer.valueOf(edadTF.getText()),
@@ -94,8 +96,8 @@ public class AlumnoFormController implements Initializable, Refreshable, Form<Al
       }
 
       @FXML
-      private void generarID() {
-            idTF.setText(r.nextLong(1000000, 9999999) + "");
+      private void generarID(MouseEvent mv) {
+            if (mv.getButton() == MouseButton.PRIMARY) claveTF.setText(r.nextLong(1000000, 9999999) + "");
       }
 
       @FXML

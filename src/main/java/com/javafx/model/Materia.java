@@ -15,11 +15,10 @@ import java.util.UUID;
 public class Materia {
 
 //	Estos se dicen que son los atributos de la entidad
-      @GeneratedValue(strategy = GenerationType.UUID)
       @Id private UUID id;
       @Column private String nombre;
       @Column private Date fecha_inicio;
-      @Column(unique = true) private Character catedra;
+      @Column private Character catedra;
 
 //      'ManyToMany' indica que una materia tiene varios alumnos, y un alumno tiene varias materias (ver 'Alumnos')
 //	Esto se llama relación, que indica como se asocian las entidades (en este caso Materia-Alumno)
