@@ -83,7 +83,9 @@ public class MateriaFormController implements Initializable, Refreshable, Form<M
             idTF.clear();
             nombreTF.clear();
             fecha_inicioDP.getEditor().clear();
-            alumnosLV.getItems().clear();
+      // TODO: cuando selecciono un registro no se cargan los alumnos al ListView del form
+      // esto lo arregla pero no se por qué, invertigarrrr
+            alumnosLV.setItems(null);
       }
 
       @Override

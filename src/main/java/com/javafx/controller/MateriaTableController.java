@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,9 +63,11 @@ public class MateriaTableController implements Initializable, Refreshable {
       }
 
       @FXML
-      private void proyectosTableMC() {
+      private void proyectosTableMC(MouseEvent me) {
+            if (me.getButton() == MouseButton.PRIMARY) {
             Materia p = tablaMaterias.getSelectionModel().getSelectedItem();
 
             if (p != null) materiaFormController.fillFields(p);
+            }
       }
 }

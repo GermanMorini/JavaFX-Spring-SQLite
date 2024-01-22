@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -40,12 +42,12 @@ public class AlumnoTableController implements Initializable, Refreshable {
       private void borrarSeleccion() {
             try {
 
-                  ObservableList<Alumno> selection = tablaEmpleados.getSelectionModel().getSelectedItems();
+            ObservableList<Alumno> selection = tablaEmpleados.getSelectionModel().getSelectedItems();
 
-                  if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
+            if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
 
-                  service.deleteAllInList(selection);
-                  refresh();
+            service.deleteAllInList(selection);
+            refresh();
             } catch (Exception e) {dialog.exceptionDialog(e);}
       }
 
@@ -59,9 +61,12 @@ public class AlumnoTableController implements Initializable, Refreshable {
       }
 
       @FXML
-      private void empleadosTableMC() {
+      private void empleadosTableMC(MouseEvent me) {
+            if (me.getButton() == MouseButton.PRIMARY) {
+
             Alumno em = tablaEmpleados.getSelectionModel().getSelectedItem();
 
             if (em != null) alumnoFormController.fillFields(em);
+            }
       }
 }
