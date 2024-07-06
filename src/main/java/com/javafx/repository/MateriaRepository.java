@@ -9,20 +9,20 @@ import java.util.Optional;
 
 @Repository
 public interface MateriaRepository extends JpaRepository<Materia, String> {
-      @Override
-      List<Materia> findAll();
+    @Override
+    List<Materia> findAll();
 
-      @Override
-      Optional<Materia> findById(String s);
+    @Override
+    Optional<Materia> findById(String s);
 
-      Optional<Materia> findByNombre(String n);
+    Optional<Materia> findByNombre(String n);
 
-      @Override
-      <S extends Materia> S save(S entity);
+    @Override
+    <S extends Materia> S save(S entity);
 
-      @Override
-      void deleteById(String s);
+    @Override
+    void deleteById(String s);
 
-      @Override
-      void deleteAllById(Iterable<? extends String> s);
+    @Override
+    void deleteAllById(Iterable<? extends String> s);
 }

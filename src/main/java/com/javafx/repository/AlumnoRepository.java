@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlumnoRepository extends JpaRepository<Alumno, Long> {
-      @Override
-      void deleteById(Long aLong);
+    @Override
+    void deleteById(Long aLong);
 
-      @Override
-      void deleteAllById(Iterable<? extends Long> longs);
+    @Override
+    void deleteAllById(Iterable<? extends Long> longs);
 }

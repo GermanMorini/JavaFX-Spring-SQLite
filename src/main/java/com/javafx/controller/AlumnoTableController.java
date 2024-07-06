@@ -22,51 +22,50 @@ import java.util.ResourceBundle;
 @Controller
 public class AlumnoTableController implements Initializable, Refreshable {
 
-      @Autowired private AlumnoService service;
-      @Autowired private Dialog dialog;
-      @Autowired private AlumnoFormController alumnoFormController;
+    @Autowired private AlumnoService service;
+    @Autowired private Dialog dialog;
+    @Autowired private AlumnoFormController alumnoFormController;
 
-      @FXML private TableView<Alumno> tablaEmpleados;
+    @FXML private TableView<Alumno> tablaEmpleados;
 
-      @Override
-      public void initialize(URL url, ResourceBundle resourceBundle) {
-            tablaEmpleados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            refresh();
-      }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tablaEmpleados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        refresh();
+    }
 
-      @Override
-      public void refresh() {
-            tablaEmpleados.setItems(FXCollections.observableList(service.getAll()));
-      }
+    @Override
+    public void refresh() {
+        tablaEmpleados.setItems(FXCollections.observableList(service.getAll()));
+    }
 
-      private void borrarSeleccion() {
-            try {
-
+    private void borrarSeleccion() {
+        try {
             ObservableList<Alumno> selection = tablaEmpleados.getSelectionModel().getSelectedItems();
 
             if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
 
             service.deleteAllInList(selection);
             refresh();
-            } catch (Exception e) {dialog.exceptionDialog(e);}
-      }
+        } catch (Exception e) {dialog.exceptionDialog(e);}
+    }
 
-      @FXML
-      private void eliminarSeleccionados() {
-            dialog.showConfirmDialog(
-                    "¿Eliminar las entradas seleccionadas?",
-                    "Eliminar",
-                    res -> {if (res == ButtonType.OK) borrarSeleccion();}
-            );
-      }
+    @FXML
+    private void eliminarSeleccionados() {
+        dialog.showConfirmDialog(
+            "¿Eliminar las entradas seleccionadas?",
+            "Eliminar",
+            res -> {if (res == ButtonType.OK) borrarSeleccion();}
+        );
+    }
 
-      @FXML
-      private void empleadosTableMC(MouseEvent me) {
+    @FXML
+    private void empleadosTableMC(MouseEvent me) {
             if (me.getButton() == MouseButton.PRIMARY) {
 
             Alumno em = tablaEmpleados.getSelectionModel().getSelectedItem();
 
             if (em != null) alumnoFormController.fillFields(em);
             }
-      }
+    }
 }

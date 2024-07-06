@@ -14,29 +14,29 @@ public class MateriaService {
 
 //	Las dependencias inyectadas con @Autowired son únicas
 //	La instancia que se genera es única para cualquier clase donde se inyecte
-      @Autowired private MateriaRepository repo;
+    @Autowired private MateriaRepository repo;
 
-      public List<Materia> getAll() {
-            return repo.findAll();
-      }
+    public List<Materia> getAll() {
+        return repo.findAll();
+    }
 
-      public Optional<Materia> getMateria(String id) {
-            return repo.findById(id);
-      }
+    public Optional<Materia> getMateria(String id) {
+        return repo.findById(id);
+    }
 
-      public void saveMateria(Materia mat) {
-            repo.save(mat);
-      }
+    public void saveMateria(Materia mat) {
+        repo.save(mat);
+    }
 
-      public void deleteMateria(Materia mat) {
-            repo.deleteById(mat.getId().toString());
-      }
+    public void deleteMateria(Materia mat) {
+        repo.deleteById(mat.getId().toString());
+    }
 
-      public void deleteAllById(List<Materia> mat) {
-            repo.deleteAllById(mat.stream()
-                    .map(Materia::getId)
-                    .map(Objects::toString)
-                    .toList()
-            );
-      }
+    public void deleteAllById(List<Materia> mat) {
+        repo.deleteAllById(mat.stream()
+              .map(Materia::getId)
+              .map(Objects::toString)
+              .toList()
+        );
+    }
 }

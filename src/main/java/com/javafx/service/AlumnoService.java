@@ -13,29 +13,29 @@ import java.util.Optional;
 @Transactional
 public class AlumnoService {
 
-      @Autowired private AlumnoRepository repo;
+    @Autowired private AlumnoRepository repo;
 
-      public List<Alumno> getAll() {
-            return repo.findAll();
-      }
+    public List<Alumno> getAll() {
+        return repo.findAll();
+    }
 
-      public Optional<Alumno> getById(Long clave) {
-            return repo.findById(clave);
-      }
+    public Optional<Alumno> getById(Long clave) {
+        return repo.findById(clave);
+    }
 
-      public void save(Alumno al) {
-            repo.save(al);
-      }
+    public void save(Alumno al) {
+        repo.save(al);
+    }
 
-      public void delete(Alumno al) {
-            repo.deleteById(al.getClave());
-      }
+    public void delete(Alumno al) {
+        repo.deleteById(al.getClave());
+    }
 
-      public void deleteAllInList(List<Alumno> al) {
-            repo.deleteAllById(
-                    al.stream()
-                            .map(Alumno::getClave)
-                            .toList()
-            );
-      }
+    public void deleteAllInList(List<Alumno> al) {
+        repo.deleteAllById(
+              al.stream()
+                    .map(Alumno::getClave)
+                    .toList()
+        );
+    }
 }

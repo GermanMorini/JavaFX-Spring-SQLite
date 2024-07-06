@@ -24,50 +24,50 @@ import java.util.ResourceBundle;
 @Slf4j
 public class MateriaTableController implements Initializable, Refreshable {
 
-      @Autowired private MateriaService servicio;
-      @Autowired private Dialog dialog;
-      @Autowired private MateriaFormController materiaFormController;
+    @Autowired private MateriaService servicio;
+    @Autowired private Dialog dialog;
+    @Autowired private MateriaFormController materiaFormController;
 
-      @FXML private TableView<Materia> tablaMaterias; // ver la anotación que hay en el .fxml línea ~160
+    @FXML private TableView<Materia> tablaMaterias; // ver la anotación que hay en el .fxml línea ~160
 
-      @Override
-      public void initialize(URL url, ResourceBundle resourceBundle) {
-            tablaMaterias.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            refresh();
-      }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tablaMaterias.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        refresh();
+    }
 
-      @Override @FXML
-      public void refresh() {
-            tablaMaterias.setItems(FXCollections.observableList(servicio.getAll()));
-      }
+    @Override @FXML
+    public void refresh() {
+        tablaMaterias.setItems(FXCollections.observableList(servicio.getAll()));
+    }
 
-      private void borrarSeleccion() {
-            try {
+    private void borrarSeleccion() {
+        try {
 
-            ObservableList<Materia> selection = tablaMaterias.getSelectionModel().getSelectedItems();
+        ObservableList<Materia> selection = tablaMaterias.getSelectionModel().getSelectedItems();
 
-            if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
+        if (selection.isEmpty()) throw new NullPointerException("No hay nada seleccionado");
 
-            servicio.deleteAllById(selection);
-            refresh();
-            } catch (Exception e) {dialog.exceptionDialog(e);}
-      }
+        servicio.deleteAllById(selection);
+        refresh();
+        } catch (Exception e) {dialog.exceptionDialog(e);}
+    }
 
-      @FXML
-      private void eliminarSeleccionados() {
-            dialog.showConfirmDialog(
-                    "¿Eliminar las entradas seleccionadas?",
-                    "Eliminar",
-                    res -> {if (res == ButtonType.OK) borrarSeleccion();}
-            );
-      }
+    @FXML
+    private void eliminarSeleccionados() {
+        dialog.showConfirmDialog(
+              "¿Eliminar las entradas seleccionadas?",
+              "Eliminar",
+              res -> {if (res == ButtonType.OK) borrarSeleccion();}
+        );
+    }
 
-      @FXML
-      private void proyectosTableMC(MouseEvent me) {
-            if (me.getButton() == MouseButton.PRIMARY) {
-            Materia p = tablaMaterias.getSelectionModel().getSelectedItem();
+    @FXML
+    private void proyectosTableMC(MouseEvent me) {
+        if (me.getButton() == MouseButton.PRIMARY) {
+        Materia p = tablaMaterias.getSelectionModel().getSelectedItem();
 
-            if (p != null) materiaFormController.fillFields(p);
-            }
-      }
+        if (p != null) materiaFormController.fillFields(p);
+        }
+    }
 }

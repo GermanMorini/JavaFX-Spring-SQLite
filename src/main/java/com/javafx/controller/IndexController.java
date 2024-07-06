@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 @Slf4j
 public class IndexController implements Initializable {
 
-      @Override
-      public void initialize(URL url, ResourceBundle resourceBundle) {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-      }
+    }
 }

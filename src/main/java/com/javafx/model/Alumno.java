@@ -13,25 +13,25 @@ import java.util.List;
 @NoArgsConstructor
 public class Alumno extends Persona {
 
-//      TODO: ver como encriptar esto
-//      por razones de seguridad, en la BD se encripta toda la información sensible
-      @Column private Long telefono;
-      @Column private String email;
-//      'mappedBy' es el nombre del campo en la entidad referenciada
-      @ManyToMany(fetch = FetchType.EAGER, mappedBy = "alumnos")
-      private List<Materia> materias;
-//      Referencia: https://www.baeldung.com/jpa-many-to-many
+//    TODO: ver como encriptar esto
+//    por razones de seguridad, en la BD se encripta toda la información sensible
+    @Column private Long telefono;
+    @Column private String email;
+//    'mappedBy' es el nombre del campo en la entidad referenciada
+//    Referencia: https://www.baeldung.com/jpa-many-to-many
+@ManyToMany(fetch = FetchType.EAGER, mappedBy = "alumnos")
+private List<Materia> materias;
 
-      public Alumno(Long clave, String nombre, String apellido, Integer edad, Integer dni, Long telefono, String email,
-                    List<Materia> materias) {
-            super(clave, nombre, apellido, edad, dni);
-            this.telefono = telefono;
-            this.email = email;
-            this.materias = materias;
-      }
+    public Alumno(Long clave, String nombre, String apellido, Integer edad, Integer dni, Long telefono, String email,
+        List<Materia> materias) {
+    super(clave, nombre, apellido, edad, dni);
+    this.telefono = telefono;
+    this.email = email;
+    this.materias = materias;
+    }
 
-      @Override
-      public String toString() {
-            return "%s, %s (%d)".formatted(getApellido(), getNombre(), getClave());
-      }
+    @Override
+    public String toString() {
+    return "%s, %s (%d)".formatted(getApellido(), getNombre(), getClave());
+    }
 }
